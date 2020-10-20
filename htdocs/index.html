@@ -1,0 +1,163 @@
+<html>
+  <head>
+    <title>BIMI Validator</title>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script src="spectrum.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css"></link>
+    <link rel="stylesheet" href="spectrum.css"></link>
+  </head>
+  <body>
+
+    <form id="form" class="u_section">
+      <input name="domain">
+      <input type="submit">
+      <div class="f_error"></div>
+    </form>
+
+    <div id="template">
+
+      <div class="yes_good"><span class="good">Yes</span></div>
+      <div class="yes_bad"><span class="bad">Yes</span></div>
+      <div class="no_good"><span class="good">No</span></div>
+      <div class="no_bad"><span class="bad">No</span></div>
+
+      <div class="error">
+        <div class="container">
+          <ul><span class="item_placeholder"></span></ul>
+        </div>
+        <div class="item">
+          <li><b><span class="error_code"></span></b>: <span class="error_description"></span> (<i><span class="error_detail"></span></i>)</li>
+        </div>
+      </div>
+
+      <div class="chain_cert">
+        <div class="container">
+          <ul><span class="item_placeholder"></span></ul>
+        </div>
+        <div class="item">
+          <li>
+            <p>Index: <span class="index"></span></p>
+            <ul>
+              <li>is Valid: <span class="is_valid"></span></li>
+              <li>Alt Name: <span class="alt_name"></span></li>
+              <li>Has Logotype Extension: <span class="has_logotype_extn"></span> (OK for chain certificates)</li>
+              <li>Has Valid Usage: <span class="has_valid_usage"></span> (Ok for chain certificates)</li>
+              <li>Is Expired: <span class="is_expired"></span></li>
+              <li>Validated to Root: <span class="is_valid_to_root"></span></li>
+              <li>Validated to Root Via Cert: <span class="valid_to_root_via"></span></li>
+              <li>Issuer: <span class="issuer"></span></li>
+              <li>Not After: <span class="not_after"></span></li>
+              <li>Not Before: <span class="not_before"></span></li>
+              <li>Subject: <span class="subject"></span></li>
+              <li>Errors: <span class="errors"></span></li>
+            </ul>
+          </li>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="t_root u_section">
+
+      <div class="u_indicators t_base t_pass">
+      <div class="f_item f_result_image_container u_square"></div>
+      <div class="f_item f_result_image_container u_circle"></div>
+      <div class="f_item f_result_image_container u_rounded"></div>
+      <div class="u_indicators_spectrum_container" ><input class="u_indicators_spectrum"></input></div>
+      </div>
+
+      <div>
+        <p>Request</p>
+        <ul>
+          <li>Domain: <span class="f_item f_request_domain"><span></li>
+          <li>Selector: <span class="f_item f_request_selector"></span></li>
+        </ul>
+      </div>
+
+      <div id="result">
+        <p>Result</p>
+        <ul>
+          <li>Result: <span class="f_item f_result_result"></span></li>
+          <li>Authentication-Results: <span class="f_item f_result_authentication_results"></span></li>
+          <li class="u_hide">Headers:<ul>
+              <li>BIMI-Indicator: <span class="f_item f_result_header_indicator"></span></li>
+              <li>location: <span class="f_item f_result_header_location"></span></li>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <p>Response</p>
+        <ul>
+          <li>Retrieved Domain: <span class="f_item f_response_domain"></span></li>
+          <li>Retrieved Selector: <span class="f_item f_response_selector"></span></li>
+          <li>Retrieved Record: <span class="f_item f_response_record"></span>
+            <ul>
+              <li>Version: <span class="f_item f_response_record_version"></span></li>
+              <li>Is Valid: <span class="f_item f_response_record_is_valid"></span></li>
+              <li class="t_base t_response_record_errors">Errors: <span class="f_item f_response_record_errors"></span></li>
+              <li class="t_base t_location">
+                <p>Location</p>
+                <ul>
+                  <li>URI: <span class="f_item f_response_record_location_uri"></span></li>
+                  <li>Is Valid: <span class="f_item f_response_record_location_is_valid"></span></li>
+                  <li class="t_base t_response_record_location_errors">Errors: <spanclass="f_item f_response_record_location_errors"></span></li>
+                  <li class="t_base t_location_indicator">
+                    <p>Indicator</p>
+                    <ul>
+                      <li>URI: <span class="f_item f_response_record_location_indicator_uri"></span></li>
+                      <li>Is Valid: <span class="f_item f_response_record_location_indicator_is_valid"></span></li>
+                      <li class="t_base t_response_record_location_indicator_errors">Errors: <span class="f_item f_response_record_location_indicator_errors"></span></li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="t_base t_authority">
+                <p>Authority</p>
+                <ul>
+                  <li>URI: <span class="f_item f_response_record_authority_uri"></span></li>
+                  <li>Is Valid: <span class="f_item f_response_record_authority_is_valid"></span></li>
+                  <li class="t_base t_response_record_authority_errors">Errors: <span class="f_item f_response_record_authority_errors"></span></li>
+                  <li class="t_base t_authority_vmc">
+                    <p>VMC</p>
+                    <ul>
+                      <li>URI: <span class="f_item f_response_record_authority_vmc_uri"></span></li>
+                      <li>Is Valid: <span class="f_item f_response_record_authority_vmc_is_valid"></span></li>
+                      <li class="t_base t_response_record_authority_vmc_errors">Errors: <span class="f_item f_response_record_authority_vmc_errors"></span></li>
+                      <li>Is Cert Valid: <span class="f_item f_response_record_authority_vmc_is_cert_valid"></span></li>
+                      <li>Is Expired: <span class="f_item f_response_record_authority_vmc_is_expired"></span></li>
+                      <li>Is Valid Alt Name: <span class="f_item f_response_record_authority_vmc_is_valid_alt_name"></span></li>
+                      <li>Has Valid Usage:<span class="f_item f_response_record_authority_vmc_has_valid_usage"></span></li>
+                      <li>Issuer: <span class="f_item f_response_record_authority_vmc_issuer"></span></li>
+                      <li>Not Before: <span class="f_item f_response_record_authority_vmc_not_before"></span></li>
+                      <li>Not After: <span class="f_item f_response_record_authority_vmc_not_after"></span></li>
+                      <li>Subject: <span class="f_item f_response_record_authority_vmc_subject"></span></li>
+                      <li class="t_base t_authority_vmc_chain">
+                        <p>Chain</p>
+                        <ul>
+                          <li>Is Valid: <span class="f_item f_response_record_authority_vmc_chain_is_valid"></span></li>
+                          <li class="t_base t_response_record_authority_vmc_chain_errors">Errors: <span class="f_item f_response_record_authority_vmc_chain_errors"></span></li>
+                          <li>Certs: <span class="f_item f_response_record_authority_vmc_chain_certs"></span></li>
+                        </ul>
+                      </li>
+                      <li class="t_base t_authority_vmc_indicator">
+                        <p>Indicator</p>
+                        <ul>
+                          <li>Is Valid: <span class="f_item f_response_record_authority_vmc_indicator_is_valid"></span></li>
+                          <li class="t_base t_response_record_authority_vmc_indicator_errors">Errors: <span class="f_item f_response_record_authority_vmc_indicator_errors"></span></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,43 @@
+.f_result_image_container {
+  width: 100px;
+  height: 100px;
+  border: 2px solid black;
+  background: yellow;
+  overflow: hidden;
+  margin: 10px;
+  display: inline-block;
+}
+
+.u_indicators_spectrum_container {
+  display: inline-block;
+}
+
+.u_square {
+}
+
+.u_circle {
+  border-radius: 100%;
+}
+
+.u_rounded {
+  border-radius: 10px;
+}
+
+#template {
+  display: none;
+}
+.good { color: green }
+.bad {color: red }
+.f_item {color: blue }
+
+.u_hide {
+  display: none;
+}
+
+.u_section {
+  width: 90%;
+  border: 1px solid black;
+  margin: 20px;
+  padding: 50px;
+}
+
