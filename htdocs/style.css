@@ -47,6 +47,9 @@ body {
   border-radius: 1em;
 }
 
+h1 {
+  margin-top: 10px;
+}
 h2,
 #form,
 header,
