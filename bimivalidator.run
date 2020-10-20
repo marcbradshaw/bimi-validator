@@ -1,0 +1,6 @@
+#!/bin/bash
+
+source /root/perl5/perlbrew/etc/bashrc
+perlbrew use 5.28.1
+cd /opt/bimivalidator/
+/root/perl5/perlbrew/perls/perl-5.28.1/bin/plackup -p 5000 /opt/bimivalidator/validator.pl

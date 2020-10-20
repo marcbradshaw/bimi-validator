@@ -1,0 +1,13 @@
+[Unit]
+Description=Webhook service for Home Automation
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/bimivalidator
+ExecStart=/opt/bimivalidator/bimivalidator.run
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
