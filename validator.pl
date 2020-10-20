@@ -14,6 +14,14 @@ use Mail::DMARC;
 use Plack::Builder;
 use Plack::Request;
 use Plack::Response;
+use POSIX;
+
+if ($<==0){
+  my $uid = scalar getpwnam('nobody');
+  my $gid = scalar getgrnam('nogroup');
+  POSIX::setuid($uid);
+  POSIX::setgid($gid);
+}
 
 my $app_check_domain = sub{
   my $env = shift;
