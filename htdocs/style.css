@@ -1,3 +1,8 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #aaa;
+}
+
 .f_result_image_container {
   width: 100px;
   height: 100px;
@@ -35,9 +40,17 @@
 }
 
 .u_section {
-  width: 90%;
   border: 1px solid black;
   margin: 20px;
   padding: 50px;
+  background-color: white;
+  border-radius: 1em;
+}
+
+h2,
+#form,
+header,
+footer {
+  text-align: center;
 }
 
