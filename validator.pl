@@ -6,6 +6,7 @@ use feature qw{ signatures };
 
 use Data::Dumper;
 use JSON;
+use Log::Dispatchouli;
 use Mail::BIMI 2.20201020.2;
 use Mail::BIMI::Indicator;
 use Mail::BIMI::Prelude;
@@ -16,6 +17,13 @@ use Plack::Request;
 use Plack::Response;
 use POSIX;
 
+my $logger = Log::Dispatchouli->new({
+  ident     => 'bimi-validator',
+  facility  => 'daemon',
+  to_stdout => 1,
+  debug     => 0,
+});
+
 if ($<==0){
   my $uid = scalar getpwnam('nobody');
   my $gid = scalar getgrnam('nogroup');
@@ -24,15 +32,32 @@ if ($<==0){
 }
 
 my $app_check_domain = sub{
-  my $env = shift;
+  my ($env) = @_;
+  state $j = JSON->new->pretty->canonical->utf8;
   my $request = Plack::Request->new($env);
   my $domain = $request->parameters->{domain};
   my $selector = $request->parameters->{selector} // 'default';
-  my $data = eval{ check_domain($domain,$selector) };
-  state $j = JSON->new->pretty->canonical->utf8;
-  my $payload = eval{ $j->encode($data) };
-  my $response = Plack::Response->new(200);
-  $response->body($payload);
+  my $log_detail = {
+    domain => $domain,
+    selector => $selector,
+  };
+  my $response = Plack::Response->new;
+  eval {
+    my $data = check_domain($domain,$selector);
+    my $payload = eval{ $j->encode($data) };
+    $response->body($payload);
+    $response->status(200);
+    $log_detail->{error} = $data->{error} if exists $data->{error};
+    $log_detail->{result} = $data->{result}->{result} if $data->{result} && $data->{result}->{result};
+    $log_detail->{authentication_results} = $data->{result}->{authentication_results} if $data->{result} && $data->{result}->{authentication_results};
+  };
+  if ( my $error = $@ ) {
+    $log_detail->{eval_error} = $error;
+    $response->status(500);
+  }
+
+  state $log_j = JSON->new->canonical->utf8;
+  $logger->log( $log_j->encode( $log_detail ) );
   return $response->finalize;
 };
 
