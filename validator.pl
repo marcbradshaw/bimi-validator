@@ -33,7 +33,7 @@ if ($<==0){
 
 my $app_check_domain = sub{
   my ($env) = @_;
-  state $j = JSON->new->pretty->canonical->utf8;
+  state $j = JSON->new->canonical->utf8;
   my $request = Plack::Request->new($env);
   my $domain = $request->parameters->{domain};
   my $selector = $request->parameters->{selector} // 'default';
@@ -56,8 +56,7 @@ my $app_check_domain = sub{
     $response->status(500);
   }
 
-  state $log_j = JSON->new->canonical->utf8;
-  $logger->log( $log_j->encode( $log_detail ) );
+  $logger->log( $j->encode( $log_detail ) );
   return $response->finalize;
 };
 
