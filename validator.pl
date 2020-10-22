@@ -20,7 +20,7 @@ use POSIX;
 my $logger = Log::Dispatchouli->new({
   ident     => 'bimi-validator',
   facility  => 'daemon',
-  to_stdout => 1,
+  to_stdout => 0,
   debug     => 0,
 });
 
