@@ -1,5 +1,6 @@
 $(document).ready(function() {
   $('.t_root').hide();
+  $('.t_message').hide();
   console.log('Loaded');
 
   $('.u_indicators_spectrum').spectrum({
@@ -15,6 +16,8 @@ $(document).ready(function() {
   });
 
   $('#form').submit(function(event) {
+    $('.t_root').hide();
+    $('.t_message').text('Checking....').show();
     var domain = $('input[name=domain]').val();
     console.log('Request for '+domain);
     $.ajax({
@@ -24,6 +27,8 @@ $(document).ready(function() {
         'domain' : domain
       },
       dataType : 'json'
+    }).fail(function() {
+       $('.t_message').text('Error!').show();
     }).done(
       function(data) {
         if(!data) {
@@ -97,6 +102,7 @@ $(document).ready(function() {
 
         $('.f_item').text('');
         $('.t_base').hide();
+        $('.t_message').text('').hide();
         $('.t_root').show();
 
         $('.f_request_domain').text(data.request.domain);
