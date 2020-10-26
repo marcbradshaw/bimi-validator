@@ -186,11 +186,14 @@ $(document).ready(function() {
           $('.t_pass').show();
           $('.f_result_header_indicator').text(data.result.header['BIMI-Indicator']);
           $('.f_result_header_location').text(data.result.header['BIMI-Location']);
-          var indicator = data.result.header['BIMI-Indicator'];
-          var indicator_xml = atob(indicator)
-          $('.f_result_image_container').html(indicator_xml);
-          $('.f_result_image_container svg').css('height','100%');
-          $('.f_result_image_container svg').css('width','100%');
+          //var indicator = data.result.header['BIMI-Indicator'];
+          //var indicator_xml = atob(indicator)
+          //$('.f_result_image_container').html(indicator_xml);
+          //$('.f_result_image_container svg').css('height','100%');
+          //$('.f_result_image_container svg').css('width','100%');
+          $('.f_result_image_container').html("<img src='"+data.response.record.location.uri+"'>");
+          $('.f_result_image_container img').css('height','100%');
+          $('.f_result_image_container img').css('width','100%');
         }
       }
     );
