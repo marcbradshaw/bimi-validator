@@ -73,6 +73,16 @@ $(document).ready(function() {
           return $('#template .error .container').html();
         }
 
+        function format_warnings(warnings){
+          var warning_html = '';
+          warnings.forEach(function(warning){
+            $('#template .warning .item .warning_detail').text(warning);
+            warning_html += $('#template .warning .item').html();;
+          });
+          $('#template .warning .container .item_placeholder').html(warning_html);
+          return $('#template .warning .container').html();
+        }
+
         function format_chain(chain){
           chain_html = '';
           chain.forEach(function(cert){
@@ -118,6 +128,10 @@ $(document).ready(function() {
         if(data.response.record.errors.length > 0) {
           $('.t_response_record_errors').show();
           $('.f_response_record_errors').html(format_errors(data.response.record.errors));
+        }
+        if(data.response.record.warnings.length > 0) {
+          $('.t_response_record_warnings').show();
+          $('.f_response_record_warnings').html(format_warnings(data.response.record.warnings));
         }
 
         if(data.response.record.location) {

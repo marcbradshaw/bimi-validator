@@ -114,6 +114,7 @@ sub check_domain($domain,$selector) {
       location => undef,
       authority => undef,
       errors => add_errors($record),
+      warnings => $record->warnings,
     };
 
     my $location = $record->location;
