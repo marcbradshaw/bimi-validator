@@ -69,9 +69,9 @@ sub check_domain($domain,$selector) {
   my $profile = 'SVG_1.2_PS';
   my $dmarc = Mail::DMARC::PurePerl->new;
 
- return { error => 'Invalid domain' } if !$domain;
- return { error => 'Invalid domain' } if !($domain=~/\./);
- return { error => 'Invalid domain' } if $domain=~/\.\./;
+  return { error => 'Invalid domain' } if !$domain;
+  return { error => 'Invalid domain' } if !($domain=~/\./);
+  return { error => 'Invalid domain' } if $domain=~/\.\./;
 
   eval {
     $dmarc->header_from($domain);
