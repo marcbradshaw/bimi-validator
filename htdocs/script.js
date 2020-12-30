@@ -213,5 +213,14 @@ $(document).ready(function() {
     );
     return false;
   });
+
+
+  var searchParams = new URLSearchParams(window.location.search)
+  var domain = searchParams.get('domain');
+  if ( domain ) {
+    $('input[name=domain]').val(domain);
+    $("#form").trigger("submit");
+  }
+
 });
 
