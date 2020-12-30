@@ -7,7 +7,7 @@ use feature qw{ signatures };
 use Data::Dumper;
 use JSON;
 use Log::Dispatchouli;
-use Mail::BIMI 2.20201020.2;
+use Mail::BIMI 2.20201027.2;
 use Mail::BIMI::Indicator;
 use Mail::BIMI::Prelude;
 use Mail::BIMI::Record;
@@ -69,9 +69,9 @@ sub check_domain($domain,$selector) {
   my $profile = 'SVG_1.2_PS';
   my $dmarc = Mail::DMARC::PurePerl->new;
 
- return { error => 'Invalid domain' } if !$domain;
- return { error => 'Invalid domain' } if !($domain=~/\./);
- return { error => 'Invalid domain' } if $domain=~/\.\./;
+  return { error => 'Invalid domain' } if !$domain;
+  return { error => 'Invalid domain' } if !($domain=~/\./);
+  return { error => 'Invalid domain' } if $domain=~/\.\./;
 
   eval {
     $dmarc->header_from($domain);
