@@ -1,0 +1,13 @@
+This software is copyright (c) 2021 by Marc Bradshaw.
+ 
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+This is an example implementation of a BIMI validator using the Mail::BIMI
+validation code.
+
+BIMI implementations differ across different mailbox providers, and while this
+validator attempts to follow the most current BIMI specification it should be
+noted that there may be additional requirements at individual MBPs which must also
+be met before a BIMI indicator is displayed.
+
