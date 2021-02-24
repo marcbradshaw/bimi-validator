@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-User=root
+User=nobody
 WorkingDirectory=/opt/bimivalidator
 ExecStart=/opt/bimivalidator/bimivalidator.run
 Restart=on-failure
