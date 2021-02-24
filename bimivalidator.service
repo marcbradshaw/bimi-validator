@@ -1,5 +1,5 @@
 [Unit]
-Description=Webhook service for Home Automation
+Description=BIMI Validator service
 After=network.target
 
 [Service]
