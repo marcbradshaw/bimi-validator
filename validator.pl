@@ -7,7 +7,7 @@ use feature qw{ signatures };
 use Data::Dumper;
 use JSON;
 use Log::Dispatchouli;
-use Mail::BIMI 2.20201027.2;
+use Mail::BIMI 3;
 use Mail::BIMI::Indicator;
 use Mail::BIMI::Prelude;
 use Mail::BIMI::Record;
