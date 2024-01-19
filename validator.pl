@@ -7,7 +7,7 @@ use feature qw{ signatures };
 use Data::Dumper;
 use JSON;
 use Log::Dispatchouli;
-use Mail::BIMI 3;
+use Mail::BIMI 3.20230913;
 use Mail::BIMI::Indicator;
 use Mail::BIMI::Prelude;
 use Mail::BIMI::Record;
@@ -157,6 +157,8 @@ sub check_domain($domain,$selector) {
           is_valid_alt_name => $vmc->is_valid_alt_name ? JSON::true : JSON::false,
           has_valid_usage => $vmc->has_valid_usage ? JSON::true : JSON::false,
           is_cert_valid => $vmc->is_cert_valid ? JSON::true : JSON::false,
+          mark_type => $vmc->mark_type // 'none',
+          is_allowed_mark_type => $vmc->is_allowed_mark_type ? JSON::true : JSON::false,
           chain => undef,
           errors => add_errors($vmc),
         };
@@ -170,6 +172,7 @@ sub check_domain($domain,$selector) {
             my $cert_struct = {
               index => $i,
               is_valid => $cert->is_valid ? JSON::true : JSON::false,
+              is_experimental => undef,
               subject => undef,
               not_before => undef,
               not_after => undef,
@@ -196,6 +199,7 @@ sub check_domain($domain,$selector) {
               }
               $cert_struct->{has_valid_usage} = $cert->has_valid_usage ? JSON::true : JSON::false;
             }
+            $cert_struct->{is_experimental} = $cert->is_experimental ? JSON::true : JSON::false;
             $cert_struct->{is_valid_to_root} = $cert->is_valid_to_root ? JSON::true : JSON::false;
             if ( $cert->is_valid_to_root ) {
               $cert_struct->{valid_to_root_via} = $cert->validated_by_id;;
