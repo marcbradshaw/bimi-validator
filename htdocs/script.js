@@ -91,6 +91,7 @@ $(document).ready(function() {
             $('#template .chain_cert .item .has_logotype_extn').html(boo(cert.has_logotype_extn,true));
             $('#template .chain_cert .item .has_valid_usage').html(boo(cert.has_valid_usage,true));
             $('#template .chain_cert .item .is_expired').html(boo(cert.is_expired,false));
+            $('#template .chain_cert .item .is_experimental').html(boo(cert.is_experimental,false));
             $('#template .chain_cert .item .is_valid').html(boo(cert.is_valid,true));
             $('#template .chain_cert .item .is_valid_to_root').html(boo(cert.is_valid_to_root,true));
             $('#template .chain_cert .item .issuer').text(cert.issuer);
@@ -177,6 +178,8 @@ $(document).ready(function() {
             $('.f_response_record_authority_vmc_not_before').text(data.response.record.authority.vmc.not_before);
             $('.f_response_record_authority_vmc_not_after').text(data.response.record.authority.vmc.not_after);
             $('.f_response_record_authority_vmc_subject').text(data.response.record.authority.vmc.subject);
+            $('.f_response_record_authority_vmc_mark_type').text(data.response.record.authority.vmc.mark_type);
+            $('.f_response_record_authority_vmc_is_allowed_mark_type').html(boo(data.response.record.authority.vmc.is_allowed_mark_type,true));
             if(data.response.record.authority.vmc.chain) {
               $('.t_authority_vmc_chain').show();
               $('.f_response_record_authority_vmc_chain_is_valid').html(boo(data.response.record.authority.vmc.chain.is_valid,true));
