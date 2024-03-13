@@ -147,6 +147,9 @@ $(document).ready(function() {
             $('.t_location_indicator').show();
             $('.f_response_record_location_indicator_uri').text(data.response.record.location.indicator.uri);
             $('.f_response_record_location_indicator_is_valid').html(boo(data.response.record.location.indicator.is_valid,true));
+            $('.f_response_record_location_indicator_size_raw').text(data.response.record.location.indicator.size_raw);
+            $('.f_response_record_location_indicator_size_uncompressed').text(data.response.record.location.indicator.size_uncompressed);
+            $('.f_response_record_location_indicator_size_header').text(data.response.record.location.indicator.size_header);
             if(data.response.record.location.indicator.errors.length > 0) {
               $('.t_response_record_location_indicator_errors').show();
               $('.f_response_record_location_indicator_errors').html(format_errors(data.response.record.location.indicator.errors));
@@ -188,6 +191,9 @@ $(document).ready(function() {
             if(data.response.record.authority.vmc.indicator) {
               $('.t_authority_vmc_indicator').show();
               $('.f_response_record_authority_vmc_indicator_is_valid').html(boo(data.response.record.authority.vmc.indicator.is_valid,true));
+              $('.f_response_record_location_indicator_size_raw').text(data.response.record.authority.indicator.size_raw);
+              $('.f_response_record_location_indicator_size_uncompressed').text(data.response.record.authority.indicator.size_uncompressed);
+              $('.f_response_record_location_indicator_size_header').text(data.response.record.authority.indicator.size_header);
               if(data.response.record.authority.vmc.indicator.errors.length > 0) {
                 $('.t_response_record_authority_vmc_indicator_errors').show();
                 $('.f_response_record_authority_vmc_indicator_errors').html(format_errors(data.response.record.authority.vmc.indicator.errors));

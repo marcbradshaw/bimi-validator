@@ -7,7 +7,7 @@ use feature qw{ signatures };
 use Data::Dumper;
 use JSON;
 use Log::Dispatchouli;
-use Mail::BIMI 3.20230913;
+use Mail::BIMI 3.20240313;
 use Mail::BIMI::Indicator;
 use Mail::BIMI::Prelude;
 use Mail::BIMI::Record;
@@ -127,11 +127,7 @@ sub check_domain($domain,$selector) {
       };
       my $indicator = $location->indicator;
       if ( $indicator ) {
-        $struct->{response}->{record}->{location}->{indicator} = {
-          uri => $indicator->uri,
-          is_valid => $indicator->is_valid ? JSON::true : JSON::false,
-          errors => add_errors($indicator),
-        };
+        $struct->{response}->{record}->{location}->{indicator} = indicator_struct($indicator);
       }
     }
 
@@ -213,11 +209,7 @@ sub check_domain($domain,$selector) {
 
           my $indicator = $vmc->indicator;
           if ( $indicator ) {
-            $struct->{response}->{record}->{authority}->{vmc}->{indicator} = {
-              uri => $indicator->uri,
-              is_valid => $indicator->is_valid ? JSON::true : JSON::false,
-              errors => add_errors($indicator),
-            };
+            $struct->{response}->{record}->{authority}->{vmc}->{indicator} = indicator_struct($indicator);
           }
         }
 
@@ -242,6 +234,25 @@ sub check_domain($domain,$selector) {
 
   return $struct;
 
+}
+
+sub indicator_struct($indicator) {
+
+  my $size_raw = 0;
+  $size_raw = length($indicator->data) if $indicator->data;
+  my $size_uncompressed = 0;
+  $size_uncompressed = length($indicator->data_uncompressed) if $indicator->data_uncompressed;
+  my $size_header = 0;
+  $size_header = length($indicator->header_crlf) if $indicator->header_crlf;
+
+  return {
+    uri => $indicator->uri,
+    is_valid => $indicator->is_valid ? JSON::true : JSON::false,
+    errors => add_errors($indicator),
+    size_raw => $size_raw,
+    size_uncompressed => $size_uncompressed,
+    size_header => $size_header,
+  };
 }
 
 sub add_errors($data) {
