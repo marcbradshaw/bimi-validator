@@ -12,6 +12,7 @@ use Mail::BIMI::Indicator;
 use Mail::BIMI::Prelude;
 use Mail::BIMI::Record;
 use Mail::DMARC;
+use File::Slurp;
 use Plack::Builder;
 use Plack::Request;
 use Plack::Response;
@@ -30,6 +31,45 @@ if ($<==0){
   POSIX::setuid($uid);
   POSIX::setgid($gid);
 }
+
+sub get_file($file) {
+  my $contents = read_file($file);
+  return $contents;
+}
+
+my $htdocs_dir = __FILE__;
+$htdocs_dir =~ s/validator\.pl$/htdocs\//;
+opendir(my $dh, $htdocs_dir);
+my @htdocs_files = grep {-f "$htdocs_dir$_"} readdir($dh);
+closedir $dh;
+
+sub get_htdocs_file($file) {
+  state $cache = {};
+  return $cache->{$file} if exists $cache->{$file};
+  my $full_file = $htdocs_dir . $file;
+  return 'ERROR' unless -e $full_file;
+  my $content = read_file($full_file);
+  $cache->{$file} = $content;
+  return $content;
+}
+
+my $app_file = sub {
+  my ($env) = @_;
+  my $request = Plack::Request->new($env);
+  my $response = Plack::Response->new;
+  my $uri = $request->request_uri;
+  $uri =~ s/\?.*$//;
+  $uri = '/index.html' if $uri eq '/';
+  for my $htdocs_file (@htdocs_files) {
+    if ($uri eq "/$htdocs_file") {
+      $response->body(get_htdocs_file($htdocs_file));
+      $response->status(200);
+      return $response->finalize;
+    }
+  }
+  $response->status(404);
+  return $response->finalize;
+};
 
 my $app_check_domain = sub{
   my ($env) = @_;
@@ -60,10 +100,13 @@ my $app_check_domain = sub{
   return $response->finalize;
 };
 
-builder {
-  mount "/checkdomain" => $app_check_domain,
-};
-
+my $builder = Plack::Builder->new;
+$builder->mount("/checkdomain" => $app_check_domain);
+$builder->mount("/" => $app_file);
+for my $htdocs_file (@htdocs_files) {
+  $builder->mount("/$htdocs_file" => $app_file);
+}
+$builder->to_app;
 
 sub check_domain($domain,$selector) {
   my $profile = 'SVG_1.2_PS';
