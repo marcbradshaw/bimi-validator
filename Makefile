@@ -21,4 +21,4 @@ docker_manifest:
 		marcbradshaw/bimivalidator:latest \
 		--amend marcbradshaw/bimivalidator:latest-amd64 \
 		--amend marcbradshaw/bimivalidator:latest-arm64
-	#docker manifest push marcbradshaw/bimivalidator:latest
+	docker manifest push marcbradshaw/bimivalidator:latest
