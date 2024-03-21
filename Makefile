@@ -1,22 +1,24 @@
-install: htdocs/jquery-3.5.1.min.js htdocs/spectrum.css htdocs/spectrum.js
-	mkdir -p /opt/bimivalidator
-	cp bimivalidator.run /opt/bimivalidator/
-	cp validator.pl /opt/bimivalidator/
-	chmod 755 /opt/bimivalidator/validator.pl
-	cp bimivalidator.run /opt/bimivalidator/
-	chmod 755 /opt/bimivalidator/bimivalidator.run
+default:
+	echo "What do you want to build?"
+
+systemd_install: docker
 	cp bimivalidator.service /etc/systemd/system/
-	mkdir -p /var/www/html/bimivalidator
-	cp -r htdocs/* /var/www/html/bimivalidator/
 	systemctl daemon-reload
 	systemctl enable bimivalidator.service
 	systemctl start bimivalidator.service
 
-htdocs/jquery-3.5.1.min.js:
-	curl -o htdocs/jquery-3.5.1.min.js https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js
+docker_install_image:
+  docker run --rm --user nobody --entrypoint mailbimi marcbradshaw/bimivalidator:latest --version
 
-htdocs/spectrum.js:
-	  curl -o htdocs/spectrum.js https://raw.githubusercontent.com/bgrins/spectrum/9aa028de7e8039c41ac792485a928edb97d4ac40/spectrum.js
+docker_build_image:
+	perl docker_build.pl build
 
-htdocs/spectrum.css:
-	  curl -o htdocs/spectrum.css https://raw.githubusercontent.com/bgrins/spectrum/9aa028de7e8039c41ac792485a928edb97d4ac40/spectrum.css
+docker_push_image:
+	perl docker_build.pl push
+
+docker_manifest:
+	docker manifest create \
+		marcbradshaw/bimivalidator:latest \
+		--amend marcbradshaw/bimivalidator:latest-amd64 \
+		--amend marcbradshaw/bimivalidator:latest-arm64
+	#docker manifest push marcbradshaw/bimivalidator:latest
