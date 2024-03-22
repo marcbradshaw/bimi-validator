@@ -46,12 +46,16 @@ sub update_docker_image {
 }
 
 sub update_systemd_service {
+  die "Existing service not detected" unless -e '/etc/systemd/system/bimivalidator.service';
 	system('systemctl', 'stop',  'bimivalidator.service');
   update_docker_image();
   install_systemd_service();
 }
 
 sub main {
+  die "This script installs system services, please re-run as root" unless $< == 0;
+  die "Docker not detected, please install docker first" if `which docker` eq '';
+
   # useful aliases
   $argv = 'systemd_install' if $argv eq 'install';
   $argv = 'systemd_update'  if $argv eq 'update';
@@ -60,7 +64,23 @@ sub main {
   return update_systemd_service()  if $argv eq 'systemd_update';
   return install_docker_image()    if $argv eq 'install_docker_image';
   return update_docker_image()     if $argv eq 'update_docker_image';
-  print "Unknown option\n";
+
+  print "BIMI Validator helper script\n";
+  print "\n";
+  print "1) Install BIMI Validator as a systemd service\n";
+  print "2) Update existing BIMI Validator service\n";
+  print "\n";
+  print "0) exit\n";
+  print "\n";
+
+  my $input = <STDIN>;
+  chomp $input;
+
+  exit 0 if $input eq '0';
+  return install_systemd_service() if $input eq '1';
+  return update_systemd_service()  if $input eq '2';
+
+  print "Unknown option $input\n";
   exit 1;
 }
 
