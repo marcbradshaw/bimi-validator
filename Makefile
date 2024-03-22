@@ -17,6 +17,8 @@ systemd_update:
 docker_install_image:
   docker run --rm --user nobody --entrypoint mailbimi marcbradshaw/bimivalidator:latest --version
 
+docker_image: docker_build_image docker_push_image docker_manifest
+
 docker_build_image:
 	perl docker_build.pl build
 
@@ -24,6 +26,8 @@ docker_push_image:
 	perl docker_build.pl push
 
 docker_manifest:
+	docker pull marcbradshaw/bimivalidator:latest-amd64
+	docker pull marcbradshaw/bimivalidator:latest-arm64
 	docker manifest create \
 		marcbradshaw/bimivalidator:latest \
 		--amend marcbradshaw/bimivalidator:latest-amd64 \
