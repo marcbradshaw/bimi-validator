@@ -28,6 +28,7 @@ docker_push_image:
 docker_manifest:
 	docker pull marcbradshaw/bimivalidator:latest-amd64
 	docker pull marcbradshaw/bimivalidator:latest-arm64
+	docker manifest rm marcbradshaw/bimivalidator:latest
 	docker manifest create \
 		marcbradshaw/bimivalidator:latest \
 		--amend marcbradshaw/bimivalidator:latest-amd64 \
