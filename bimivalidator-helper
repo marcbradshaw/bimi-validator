@@ -51,7 +51,8 @@ sub update_docker_image {
 
 sub update_systemd_service {
   die "Existing service not detected" unless -e '/etc/systemd/system/bimivalidator.service';
-	system('systemctl', 'stop',  'bimivalidator.service');
+  print "Stopping the running systemd service and container\n\n";
+  system('systemctl', 'stop',  'bimivalidator.service');
   sleep 1;
   system('docker', 'stop', 'bimivalidator');
   sleep 2;
