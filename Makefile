@@ -1,10 +1,17 @@
 default:
 	echo "What do you want to build?"
 
-systemd_install: docker
+systemd_install:
+  docker run --rm --user nobody --entrypoint mailbimi marcbradshaw/bimivalidator:latest --version
 	cp bimivalidator.service /etc/systemd/system/
 	systemctl daemon-reload
 	systemctl enable bimivalidator.service
+	systemctl start bimivalidator.service
+
+systemd_update:
+	systemctl stop bimivalidator.service
+	docker image rm marcbradshaw/bimivalidator:latest
+	docker run --rm --user nobody --entrypoint mailbimi marcbradshaw/bimivalidator:latest --version
 	systemctl start bimivalidator.service
 
 docker_install_image:
