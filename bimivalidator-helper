@@ -3,6 +3,7 @@
 my $argv = $ARGV[0];
 
 sub install_docker_image {
+  print "Installing the docker image\n\n";
   system(
     'docker', 'run',
     '--rm',
@@ -13,6 +14,7 @@ sub install_docker_image {
 }
 
 sub remove_docker_image {
+  print "Removing the old docker image\n\n";
 	system('docker', 'image', 'rm', 'marcbradshaw/bimivalidator:latest');
 }
 
@@ -31,6 +33,8 @@ Restart=on-failure
 [Install]
 WantedBy=multi-user.target';
 
+  print "Installing and enabling the systemd service\n\n";
+
   open my $outf, '>', '/etc/systemd/system/bimivalidator.service' || die 'could not write service file';
   print $outf $payload;
   close $outf;
@@ -48,6 +52,7 @@ sub update_docker_image {
 sub update_systemd_service {
   die "Existing service not detected" unless -e '/etc/systemd/system/bimivalidator.service';
 	system('systemctl', 'stop',  'bimivalidator.service');
+  sleep 5; # hack to avoid race condition where image has not been fully stopped before remove runs
   update_docker_image();
   install_systemd_service();
 }
