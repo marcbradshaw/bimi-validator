@@ -64,3 +64,21 @@ footer {
   text-align: center;
 }
 
+#form p {
+  width: 100%;
+  padding-bottom: .5em;
+}
+
+#form .textinput {
+  width: 50%;
+}
+
+#form p.submit {
+  text-align: center;
+  padding: 0;
+}
+
+#form input.submit {
+
+}
+

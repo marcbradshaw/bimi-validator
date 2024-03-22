@@ -79,6 +79,7 @@ my $app_check_domain = sub{
   my $pretty = $request->parameters->{pretty};
   $j->pretty if $pretty;
   my $selector = $request->parameters->{selector} // 'default';
+  $selector = 'default' if $selector eq '';
   my $log_detail = {
     domain => $domain,
     selector => $selector,

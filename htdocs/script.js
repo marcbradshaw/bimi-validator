@@ -19,12 +19,15 @@ $(document).ready(function() {
     $('.t_root').hide();
     $('.t_message').text('Checking....').show();
     var domain = $('input[name=domain]').val();
-    console.log('Request for '+domain);
+    var selector = $('input[name=selector]').val();
+
+    console.log('Request for '+domain+' '+selector);
     $.ajax({
       type : 'POST',
       url : '/checkdomain',
       data : {
-        'domain' : domain
+        'domain' : domain,
+        'selector' :selector,
       },
       dataType : 'json'
     }).fail(function() {
