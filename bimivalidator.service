@@ -5,7 +5,7 @@ After=network.target
 [Service]
 Type=simple
 User=nobody
-ExecStart=docker run --rm -p 5000:5000 --user nobody marcbradshaw/bimivalidator:latest
+ExecStart=docker run ---name bimivalidator -rm -p 5000:5000 --user nobody marcbradshaw/bimivalidator:latest
 Restart=on-failure
 
 [Install]
