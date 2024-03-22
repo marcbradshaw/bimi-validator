@@ -16,6 +16,7 @@ use File::Slurp;
 use Plack::Builder;
 use Plack::Request;
 use Plack::Response;
+use English;
 use POSIX;
 
 my $logger = Log::Dispatchouli->new({
@@ -43,12 +44,19 @@ opendir(my $dh, $htdocs_dir);
 my @htdocs_files = grep {-f "$htdocs_dir$_"} readdir($dh);
 closedir $dh;
 
+sub get_random {
+  srand (time.$PID);
+  my $random = floor rand(99999999);
+}
+
 sub get_htdocs_file($file) {
   state $cache = {};
+  state $random = get_random;
   return $cache->{$file} if exists $cache->{$file};
   my $full_file = $htdocs_dir . $file;
   return 'ERROR' unless -e $full_file;
   my $content = read_file($full_file);
+  $content =~ s/##NOCACHE##/$random/g;
   $cache->{$file} = $content;
   return $content;
 }
