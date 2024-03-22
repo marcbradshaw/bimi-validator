@@ -52,7 +52,9 @@ sub update_docker_image {
 sub update_systemd_service {
   die "Existing service not detected" unless -e '/etc/systemd/system/bimivalidator.service';
 	system('systemctl', 'stop',  'bimivalidator.service');
-  sleep 5; # hack to avoid race condition where image has not been fully stopped before remove runs
+  sleep 1;
+  system('docker', 'stop', 'bimivalidator');
+  sleep 2;
   update_docker_image();
   install_systemd_service();
 }
