@@ -76,6 +76,8 @@ my $app_check_domain = sub{
   state $j = JSON->new->canonical->utf8;
   my $request = Plack::Request->new($env);
   my $domain = $request->parameters->{domain};
+  my $pretty = $request->parameters->{pretty};
+  $j->pretty if $pretty;
   my $selector = $request->parameters->{selector} // 'default';
   my $log_detail = {
     domain => $domain,
@@ -234,7 +236,7 @@ sub check_domain($domain,$selector) {
               if ( $exts ) {
                 my $alt_name = exists $exts->{'2.5.29.17'} ? $exts->{'2.5.29.17'}->to_string : undef;
                 $cert_struct->{alt_name} = $alt_name//undef;
-                $cert_struct->{has_logotype_extn} = exists($exts->{&LOGOTYPE_OID}) ? JSON::true : JSON::false;
+                $cert_struct->{has_logotype_extn} = exists($exts->{&LOGOTYPE_OID()}) ? JSON::true : JSON::false;
               }
               $cert_struct->{has_valid_usage} = $cert->has_valid_usage ? JSON::true : JSON::false;
             }
