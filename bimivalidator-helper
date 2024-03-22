@@ -1,0 +1,67 @@
+#!/usr/bin/env perl
+
+my $argv = $ARGV[0];
+
+sub install_docker_image {
+  system(
+    'docker', 'run',
+    '--rm',
+    '--user', 'nobody',
+    '--entrypoint', 'mailbimi',
+    'marcbradshaw/bimivalidator:latest', '--version',
+  );
+}
+
+sub remove_docker_image {
+	system('docker', 'image', 'rm', 'marcbradshaw/bimivalidator:latest');
+}
+
+sub install_systemd_service {
+  install_docker_image();
+
+  my $payload = '[Unit]
+Description=BIMI Validator service
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=docker run --name bimivalidator --rm -p 5000:5000 --user nobody marcbradshaw/bimivalidator:latest
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target';
+
+  open my $outf, '>', '/etc/systemd/system/bimivalidator.service' || die 'could not write service file';
+  print $outf $payload;
+  close $outf;
+
+	system('systemctl', 'daemon-reload');
+	system('systemctl', 'enable', 'bimivalidator.service');
+	system('systemctl', 'start',  'bimivalidator.service');
+}
+
+sub update_docker_image {
+  remove_docker_image();
+  install_docker_image();
+}
+
+sub update_systemd_service {
+	system('systemctl', 'stop',  'bimivalidator.service');
+  update_docker_image();
+  install_systemd_service();
+}
+
+sub main {
+  # useful aliases
+  $argv = 'systemd_install' if $argv eq 'install';
+  $argv = 'systemd_update'  if $argv eq 'update';
+
+  return install_systemd_service() if $argv eq 'systemd_install';
+  return update_systemd_service()  if $argv eq 'systemd_update';
+  return install_docker_image()    if $argv eq 'install_docker_image';
+  return update_docker_image()     if $argv eq 'update_docker_image';
+  print "Unknown option\n";
+  exit 1;
+}
+
+main();

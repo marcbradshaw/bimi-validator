@@ -1,21 +1,21 @@
 default:
 	echo "What do you want to build?"
 
+# wrappers around bimivalidator-helper for service management
+
 systemd_install:
-  docker run --rm --user nobody --entrypoint mailbimi marcbradshaw/bimivalidator:latest --version
-	cp bimivalidator.service /etc/systemd/system/
-	systemctl daemon-reload
-	systemctl enable bimivalidator.service
-	systemctl start bimivalidator.service
+	perl bimivalidator-helper systemv_install
 
 systemd_update:
-	systemctl stop bimivalidator.service
-	docker image rm marcbradshaw/bimivalidator:latest
-	docker run --rm --user nobody --entrypoint mailbimi marcbradshaw/bimivalidator:latest --version
-	systemctl start bimivalidator.service
+	perl bimivalidator-helper systemv_update
 
-docker_install_image:
-  docker run --rm --user nobody --entrypoint mailbimi marcbradshaw/bimivalidator:latest --version
+install_docker_image:
+	perl bimivalidator-helper install_docker_image
+
+update_docker_image:
+	perl bimibalidator-helper update_docker_image
+
+# build and manage docker images
 
 docker_image: docker_build_image docker_push_image docker_manifest
 
@@ -34,6 +34,8 @@ docker_manifest:
 		--amend marcbradshaw/bimivalidator:latest-amd64 \
 		--amend marcbradshaw/bimivalidator:latest-arm64
 	docker manifest push marcbradshaw/bimivalidator:latest
+
+# Manage the local dev environment
 
 local_dev:
 	curl -o htdocs/jquery-3.5.1.min.js \
