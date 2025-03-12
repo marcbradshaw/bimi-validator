@@ -173,7 +173,7 @@ A **ResultObject** object has the following properties:
 - **authentication_results**: `String`
   A text representation of the authentication-results header generated
 - **header**: `HeaderObject`
-  A Header object conatining the generated headers for this result
+  A Header object containing the generated headers for this result
 - **result**: `String`
   A text representation of the Authentication result, pass/fail/etc
 
