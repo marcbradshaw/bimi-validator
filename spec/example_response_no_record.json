@@ -1,0 +1,46 @@
+{
+   "request" : {
+      "domain" : "fastmail.com",
+      "selector" : "default"
+   },
+   "response" : {
+      "record" : {
+         "authority" : {
+            "errors" : [],
+            "is_valid" : true,
+            "uri" : null,
+            "vmc" : null
+         },
+         "errors" : [
+            {
+               "code" : "NO_BIMI_RECORD",
+               "description" : "No BIMI records found",
+               "detail" : null
+            }
+         ],
+         "is_valid" : false,
+         "location" : {
+            "errors" : [
+               {
+                  "code" : "MISSING_L_TAG",
+                  "description" : "Missing l tag",
+                  "detail" : null
+               }
+            ],
+            "indicator" : null,
+            "is_valid" : false,
+            "uri" : null
+         },
+         "retrieved_domain" : null,
+         "retrieved_record" : null,
+         "retrieved_selector" : null,
+         "version" : null,
+         "warnings" : []
+      }
+   },
+   "result" : {
+      "authentication_results" : "Authentication-Results: authservid.example.com; bimi=skipped (DMARC Policy is not at enforcement)",
+      "header" : {},
+      "result" : "skipped"
+   }
+}

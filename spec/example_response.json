@@ -1,0 +1,119 @@
+{
+   "request" : {
+      "domain" : "fastmail.help",
+      "selector" : "default"
+   },
+   "response" : {
+      "record" : {
+         "authority" : {
+            "errors" : [],
+            "is_valid" : true,
+            "uri" : "https://app.fastmail.com/static/images/bimi/fastmail.help.2024.pem",
+            "vmc" : {
+               "chain" : {
+                  "certs" : [
+                     {
+                        "alt_name" : "DNS:fastmail.help",
+                        "errors" : [],
+                        "has_logotype_extn" : true,
+                        "has_valid_usage" : true,
+                        "index" : 1,
+                        "is_experimental" : false,
+                        "is_expired" : false,
+                        "is_valid" : true,
+                        "is_valid_to_root" : true,
+                        "issuer" : "C=US, O=DigiCert, Inc., CN=DigiCert Verified Mark RSA4096 SHA256 2021 CA1",
+                        "not_after" : "Sep 18 23:59:59 2025 GMT",
+                        "not_before" : "Sep 18 00:00:00 2024 GMT",
+                        "subject" : "jurisdictionC=AU, businessCategory=Private Organization, serialNumber=142 646 580, C=AU, ST=Victoria, L=Melbourne, street=2/114 William St, O=Fastmail Pty Ltd, CN=Fastmail Pty Ltd, 1.3.6.1.4.1.53087.1.13=Registered Mark, 1.3.6.1.4.1.53087.1.3=US, 1.3.6.1.4.1.53087.1.4=6550352",
+                        "valid_to_root_via" : 0
+                     },
+                     {
+                        "alt_name" : null,
+                        "errors" : [],
+                        "has_logotype_extn" : false,
+                        "has_valid_usage" : true,
+                        "index" : 2,
+                        "is_experimental" : false,
+                        "is_expired" : false,
+                        "is_valid" : true,
+                        "is_valid_to_root" : true,
+                        "issuer" : "C=US, ST=Utah, L=Lehi, O=DigiCert, Inc., OU=www.digicert.com, CN=DigiCert Verified Mark Root CA",
+                        "not_after" : "Jun 30 23:59:59 2036 GMT",
+                        "not_before" : "Jul  1 00:00:00 2021 GMT",
+                        "subject" : "C=US, O=DigiCert, Inc., CN=DigiCert Verified Mark RSA4096 SHA256 2021 CA1",
+                        "valid_to_root_via" : 0
+                     },
+                     {
+                        "alt_name" : null,
+                        "errors" : [],
+                        "has_logotype_extn" : false,
+                        "has_valid_usage" : false,
+                        "index" : 3,
+                        "is_experimental" : false,
+                        "is_expired" : false,
+                        "is_valid" : true,
+                        "is_valid_to_root" : true,
+                        "issuer" : "C=US, ST=Utah, L=Lehi, O=DigiCert, Inc., OU=www.digicert.com, CN=DigiCert Verified Mark Root CA",
+                        "not_after" : "Sep 23 12:12:06 2049 GMT",
+                        "not_before" : "Sep 23 12:12:06 2019 GMT",
+                        "subject" : "C=US, ST=Utah, L=Lehi, O=DigiCert, Inc., OU=www.digicert.com, CN=DigiCert Verified Mark Root CA",
+                        "valid_to_root_via" : "1"
+                     }
+                  ],
+                  "is_valid" : true
+               },
+               "errors" : [],
+               "has_valid_usage" : true,
+               "indicator" : {
+                  "errors" : [],
+                  "is_valid" : true,
+                  "size_header" : 1740,
+                  "size_raw" : 672,
+                  "size_uncompressed" : 1192,
+                  "uri" : "https://app.fastmail.com/static/images/bimi/fastmail.help.2024.pem"
+               },
+               "is_allowed_mark_type" : true,
+               "is_cert_valid" : true,
+               "is_expired" : false,
+               "is_valid" : true,
+               "is_valid_alt_name" : true,
+               "issuer" : "C=US, O=DigiCert, Inc., CN=DigiCert Verified Mark RSA4096 SHA256 2021 CA1",
+               "mark_type" : "Registered Mark",
+               "not_after" : "Sep 18 23:59:59 2025 GMT",
+               "not_before" : "Sep 18 00:00:00 2024 GMT",
+               "subject" : "jurisdictionC=AU, businessCategory=Private Organization, serialNumber=142 646 580, C=AU, ST=Victoria, L=Melbourne, street=2/114 William St, O=Fastmail Pty Ltd, CN=Fastmail Pty Ltd, 1.3.6.1.4.1.53087.1.13=Registered Mark, 1.3.6.1.4.1.53087.1.3=US, 1.3.6.1.4.1.53087.1.4=6550352",
+               "uri" : "https://app.fastmail.com/static/images/bimi/fastmail.help.2024.pem"
+            }
+         },
+         "errors" : [],
+         "is_valid" : true,
+         "location" : {
+            "errors" : [],
+            "indicator" : {
+               "errors" : [],
+               "is_valid" : true,
+               "size_header" : 1740,
+               "size_raw" : 1192,
+               "size_uncompressed" : 1192,
+               "uri" : "https://app.fastmail.com/static/images/bimi/fastmail.help.2024.svg"
+            },
+            "is_valid" : true,
+            "uri" : "https://app.fastmail.com/static/images/bimi/fastmail.help.2024.svg"
+         },
+         "retrieved_domain" : "fastmail.help",
+         "retrieved_record" : "v=BIMI1; l=https://app.fastmail.com/static/images/bimi/fastmail.help.2024.svg; a=https://app.fastmail.com/static/images/bimi/fastmail.help.2024.pem",
+         "retrieved_selector" : "default",
+         "version" : "BIMI1",
+         "warnings" : []
+      }
+   },
+   "result" : {
+      "authentication_results" : "Authentication-Results: authservid.example.com; bimi=pass header.d=fastmail.help header.selector=default policy.authority=pass policy.mark-type=\"Registered Mark\" policy.authority-uri=https://app.fastmail.com/static/images/bimi/fastmail.help.2024.pem",
+      "header" : {
+         "BIMI-Indicator" : "PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3\n    I6IEFkb2JlIElsbHVzdHJhdG9yIDI1LjIuMywgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZH\n    IFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMiIgYmFzZV\n    Byb2ZpbGU9InRpbnktcHMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIg\n    dmlld0JveD0iMCAwIDEwMjQgMTAyNCI+CiAgPHRpdGxlPkZhc3RtYWlsIFB0eSBMdGQ8L3\n    RpdGxlPgo8ZyBpZD0iQXJ0d29yayI+CiAgICAgICAgPHJlY3QgZmlsbD0iI0ZGRkZGRiIg\n    d2lkdGg9IjEwMjQiIGhlaWdodD0iMTAyNCIgLz4KICAgICAgICA8cGF0aCBmaWxsPSIjMD\n    A2N0I5IiBkPSJNMTIwLjIsNTEyYzAtMjE2LjQsMTc1LjQtMzkxLjgsMzkxLjgtMzkxLjhj\n    MTM2LDAsMjU1LjcsNjkuMywzMjYsMTc0LjVsNzcuMiwxNS4ybDkuNi03My4xICAgYy04OS\n    0xMzMuMi0yNDAuNi0yMjEtNDEyLjctMjIxQzIzOCwxNS45LDE1LjksMjM4LDE1LjksNTEy\n    Yy0wLjEsOTgsMjguOSwxOTMuOCw4My4zLDI3NS4ybDc0LjcsOS43bDEyLjEtNjcuNSAgIE\n    MxNDMsNjY1LDEyMC4xLDU4OS40LDEyMC4yLDUxMnoiIC8+CiAgICAgICAgPHBhdGggZmls\n    bD0iIzY5QjNFNyIgZD0iTTkyNiwyMzguNmMtMC40LTAuNi0wLjgtMS4yLTEuMi0xLjhMOD\n    M4LDI5NC43YzAuNCwwLjYsMC44LDEuMiwxLjIsMS44YzQyLjIsNjMuOSw2NC43LDEzOC45\n    LDY0LjYsMjE1LjUgICBjMCwyMTYuNC0xNzUuNCwzOTEuOC0zOTEuOCwzOTEuOGMtMTM1Lj\n    IsMC0yNTQuNC02OC41LTMyNC44LTE3Mi43Yy0wLjQtMC42LTAuOC0xLjItMS4yLTEuOGwt\n    ODYuOCw1Ny45YzAuNCwwLjYsMC44LDEuMiwxLjIsMS44ICAgYzg5LjEsMTMyLjIsMjQwLj\n    IsMjE5LjEsNDExLjYsMjE5LjFjMjc0LDAsNDk2LjEtMjIyLjEsNDk2LjEtNDk2LjFDMTAw\n    OC4zLDQxNC44LDk3OS43LDMxOS43LDkyNiwyMzguNnoiIC8+CiAgICAgICAgPHBhdGggZm\n    lsbD0iI0ZGQzEwNyIgZD0iTTUxMiw1MTJMMjc2LjEsMzU0Ljh2MzE0LjVsMCwwbDE0OC4y\n    LTQ1LjlMNTEyLDUxMnoiIC8+CiAgICAgICAgPHBhdGggZmlsbD0iIzMzM0U0OCIgZD0iTT\n    I3Ni4xLDY2OS4yaDQ1NS4xYzkuMiwwLDE2LjYtNy40LDE2LjYtMTYuNmMwLDAsMCwwLDAs\n    MFYzNTQuOEwyNzYuMSw2NjkuMnoiIC8+CjwvZz4KPC9zdmc+Cg==",
+         "BIMI-Location" : "v=BIMI1;\n    l=https://app.fastmail.com/static/images/bimi/fastmail.help.2024.svg\n    a=https://app.fastmail.com/static/images/bimi/fastmail.help.2024.pem"
+      },
+      "result" : "pass"
+   }
+}
